@@ -1,20 +1,45 @@
 # to find and replace plugin name in wordpress plugin boilerplate
 
+# two command line args must be given
+# A.) path to plugin folder
+# B.) name of plugin with spaces, example 'super awesome plugin'
+
 import os
 import sys
 
-if not sys.argv[1]:
+pluginFolderPath = sys.argv[1]
+pluginName = sys.argv[2]
+
+if not pluginFolderPath:
     print('Must provide a path argument')
     sys.exit(0)
 
-things_to_replace = {
-    "plugin-name": 'proxy-network-pro',
-    "plugin_name": "proxy_network_pro",
-    "Plugin_Name": "Proxy_Network_Pro",
-    "PLUGIN_NAME_": "PROXY_NETWORK_PRO_",
-}
+if not pluginName:
+    print('Must provide plugin name')
+    sys.exit(0)
 
-for dname, dirs, files in os.walk(sys.argv[1]):
+
+# arg should be a string with spaces 'my plugin name'
+def getThingsToReplace(plugin_name):
+    things_to_replace = {
+        "plugin-name": 'proxy-network-pro',
+        "plugin_name": "proxy_network_pro",
+        "Plugin_Name": "Proxy_Network_Pro",
+        "PLUGIN_NAME_": "PROXY_NETWORK_PRO_",
+    }
+
+    things_to_replace['plugin-name'] = plugin_name.lower().replace(' ', '-')
+    things_to_replace['plugin_name'] = plugin_name.lower().replace(' ', '_')
+    things_to_replace['Plugin_Name'] = plugin_name.lower().title().replace(' ', '_')
+    things_to_replace['PLUGIN_NAME'] = plugin_name.upper().replace(' ', '_')
+
+    return things_to_replace
+
+
+
+things_to_replace = getThingsToReplace(pluginName)
+
+for dname, dirs, files in os.walk(pluginFolderPath):
 
     for originalFileName in files:
 
@@ -40,3 +65,5 @@ for dname, dirs, files in os.walk(sys.argv[1]):
             
         with open(newFpath, "w") as f:
             f.write(contents)
+
+
