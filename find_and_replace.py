@@ -21,17 +21,12 @@ if not pluginName:
 
 # arg should be a string with spaces 'my plugin name'
 def getThingsToReplace(plugin_name):
-    things_to_replace = {
-        "plugin-name": 'proxy-network-pro',
-        "plugin_name": "proxy_network_pro",
-        "Plugin_Name": "Proxy_Network_Pro",
-        "PLUGIN_NAME_": "PROXY_NETWORK_PRO_",
-    }
+    things_to_replace = {}
 
     things_to_replace['plugin-name'] = plugin_name.lower().replace(' ', '-')
     things_to_replace['plugin_name'] = plugin_name.lower().replace(' ', '_')
     things_to_replace['Plugin_Name'] = plugin_name.lower().title().replace(' ', '_')
-    things_to_replace['PLUGIN_NAME'] = plugin_name.upper().replace(' ', '_')
+    things_to_replace['PLUGIN_NAME_'] = plugin_name.upper().replace(' ', '_')
 
     return things_to_replace
 
