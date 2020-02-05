@@ -26,7 +26,8 @@ def getThingsToReplace(plugin_name):
     things_to_replace['plugin-name'] = plugin_name.lower().replace(' ', '-')
     things_to_replace['plugin_name'] = plugin_name.lower().replace(' ', '_')
     things_to_replace['Plugin_Name'] = plugin_name.lower().title().replace(' ', '_')
-    things_to_replace['PLUGIN_NAME_'] = plugin_name.upper().replace(' ', '_')
+    things_to_replace['PLUGIN_NAME'] = plugin_name.upper().replace(' ', '_')
+    things_to_replace['WordPress Plugin Boilerplate'] = plugin_name.title()
 
     return things_to_replace
 
